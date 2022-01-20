@@ -1,7 +1,7 @@
 const stdin = process.stdin;
 let globalConnection;   // stor the tcp connection
 
-const setInput = (conn) => {
+const setupInput  = (conn) => {
   globalConnection = conn;
     stdin.setRawMode(true);
     stdin.setEncoding('utf8');
@@ -13,7 +13,10 @@ const setInput = (conn) => {
     // your code here
     
     stdin.on('data', (key) => {
-
+      if(key === 'q'){
+        
+        process.exit();
+      }
       process.stdout.write('.');
       if (key === 'w') {
         globalConnection.write('Move: up');
@@ -35,4 +38,4 @@ const setInput = (conn) => {
 
   stdin.on("data", handleUserInput);
 
-module.exports = setInput;
+module.exports = {setupInput};
